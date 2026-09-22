@@ -1,50 +1,86 @@
 /* ===================================================================
+   PRAKTIKUM 2 — MINGGU 3: INTEGRASI BOOTSTRAP 5.3.3 + CUSTOM CSS
+   Rahel Juri Elisabet Silaban — 12S24054 — S1 Sistem Informasi, IT Del
+   ===================================================================
+   STRATEGI OVERRIDE:
+   File ini di-link SETELAH Bootstrap di <head>, sehingga semua aturan
+   di sini menang secara cascade order tanpa perlu !important.
+   =================================================================== */
+
+/* ===================================================================
    0. UNIVERSAL RESET
+   Dipertahankan dari Praktikum 1 — tidak konflik dengan Bootstrap reset
    =================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 /* ===================================================================
-   1. DESIGN TOKENS
+   LANGKAH 6: CSS CUSTOM PROPERTIES (Design Tokens)
    -------------------------------------------------------------------
-   Palet (aturan 60-30-10):
-   60% netral   -> --bg, --surface
-   30% teks     -> --ink, --ink-soft
-   10% aksen    -> --accent, --accent-ink
+   Minimal 6 variabel dari identitas personal Praktikum 1:
+   Palet aturan 60-30-10:
+   60% netral  -> --color-bg, --color-surface
+   30% teks    -> --color-ink, --color-ink-soft
+   10% aksen   -> --color-accent, --color-accent-2
+
+   Variabel ini diterapkan ke navbar, card, tombol secara konsisten.
    =================================================================== */
 :root {
-  --bg: #F7F5FB;
-  --surface: #FFFFFF;
-  --line: #E3DCF2;
+  /* --- Warna Netral (60%) --- */
+  --color-bg:       #F7F5FB;  /* latar halaman — ungu muda sangat terang */
+  --color-surface:  #FFFFFF;  /* latar kartu, form, navbar collapse */
+  --color-line:     #E3DCF2;  /* garis border dan separator */
 
-  --ink: #211A2E;
-  --ink-soft: #5B5270;
-  --ink-faint: #8A8098;
+  /* --- Warna Teks (30%) --- */
+  --color-ink:      #211A2E;  /* teks utama — hitam keunguan */
+  --color-ink-soft: #5B5270;  /* teks sekunder */
+  --color-ink-faint:#8A8098;  /* teks tersier/placeholder */
 
-  --accent: #7C3AED;
-  --accent-2: #D946A8;
-  --accent-dark: #5B21B6;
-  --accent-soft: #F0E9FC;
-  --accent-ink: #FFFFFF;
+  /* --- Aksen Brand (10%) — IDENTITAS PERSONAL --- */
+  --color-accent:   #7C3AED;  /* ungu violet utama */
+  --color-accent-2: #D946A8;  /* pink magenta — pembeda gradient */
+  --color-accent-dk:#5B21B6;  /* ungu gelap untuk hover/link */
+  --color-accent-lt:#F0E9FC;  /* ungu sangat muda untuk background badge */
+  --color-accent-ink:#FFFFFF; /* teks di atas background aksen */
 
-  --gradient-brand: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  /* --- Gradient Brand (diagonal 135°, ungu → pink) --- */
+  --gradient-brand: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-2) 100%);
 
-  --warn: #C0562B;
+  /* --- Warna Peringatan --- */
+  --color-warn:     #C0562B;
 
-  --font-display: "Sora", "Segoe UI", sans-serif;
-  --font-body: "Inter", "Segoe UI", sans-serif;
+  /* --- Tipografi Personal --- */
+  --font-display:   "Sora", "Segoe UI", sans-serif;
+  --font-body:      "Inter", "Segoe UI", sans-serif;
 
+  /* --- Border Radius --- */
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 22px;
 
+  /* --- Box Shadow (bernuansa warna brand) --- */
   --shadow-sm: 0 2px 6px rgba(93, 41, 173, 0.08);
   --shadow-md: 0 16px 32px -10px rgba(124, 58, 237, 0.28);
+
+  /* --- Alias kompatibilitas (nama lama → variabel baru) --- */
+  --bg:         var(--color-bg);
+  --surface:    var(--color-surface);
+  --line:       var(--color-line);
+  --ink:        var(--color-ink);
+  --ink-soft:   var(--color-ink-soft);
+  --ink-faint:  var(--color-ink-faint);
+  --accent:     var(--color-accent);
+  --accent-2:   var(--color-accent-2);
+  --accent-dark:var(--color-accent-dk);
+  --accent-soft:var(--color-accent-lt);
+  --accent-ink: var(--color-accent-ink);
+  --warn:       var(--color-warn);
 }
 
+/* ===================================================================
+   1. BASE / GLOBAL
+   =================================================================== */
 html {
   scroll-behavior: smooth;
 }
@@ -52,23 +88,23 @@ html {
 body {
   font-family: var(--font-body);
   background:
-    radial-gradient(circle at 8% 8%, rgba(124, 58, 237, 0.10) 0%, transparent 42%),
+    radial-gradient(circle at 8% 8%,  rgba(124, 58, 237, 0.10) 0%, transparent 42%),
     radial-gradient(circle at 95% 18%, rgba(217, 70, 168, 0.10) 0%, transparent 38%),
     radial-gradient(circle at 50% 95%, rgba(124, 58, 237, 0.07) 0%, transparent 40%),
-    var(--bg);
-  color: var(--ink);
+    var(--color-bg);
+  color: var(--color-ink);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  color: var(--ink);
+  color: var(--color-ink);
   line-height: 1.2;
 }
 
 a {
-  color: var(--accent-dark);
+  color: var(--color-accent-dk);
 }
 
 a:focus-visible,
@@ -76,7 +112,7 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--color-accent);
   outline-offset: 2px;
 }
 
@@ -85,10 +121,9 @@ img {
   display: block;
 }
 
+/* Section wrapper — Bootstrap .container digunakan di dalam, ini untuk padding section */
 .section {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 88px 24px;
+  padding: 88px 0;
 }
 
 .section-heading {
@@ -113,58 +148,55 @@ img {
 }
 
 .section-heading p {
-  color: var(--ink-soft);
+  color: var(--color-ink-soft);
   font-size: 1rem;
 }
 
 /* ===================================================================
-   2. HEADER & NAVIGATION
+   2. HEADER & NAVBAR (Langkah 2 Override)
+   Menimpa Bootstrap navbar-dark default dengan warna brand
    =================================================================== */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(247, 245, 251, 0.85);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
-  box-shadow: 0 1px 0 0 rgba(124, 58, 237, 0.04);
+  /* Header wrapper membungkus nav Bootstrap */
 }
 
-.header-inner {
+/* Override: warna background navbar dari Bootstrap */
+#navbar-utama {
+  background: var(--color-accent) !important;
+  /* ALASAN !important: Bootstrap menggunakan .bg-dark inline atau class utility
+     yang spesifisitasnya sama dengan selector ini. Karena navbar menggunakan
+     navbar-dark (bukan .bg-dark class eksplisit), ini aman — hanya 1 instance. */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 2px 12px rgba(93, 41, 173, 0.25);
+}
+
+.header-inner-nav {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 18px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
+  padding: 10px 24px;
 }
 
-.logo {
+/* Logo override */
+.navbar-brand.logo {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.15rem;
-  color: var(--ink);
+  color: #ffffff;
   text-decoration: none;
 }
 
 .logo-dot {
-  background: var(--gradient-brand);
+  background: linear-gradient(135deg, #F0E9FC, #D946A8);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 1.3rem;
 }
 
-.main-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 6px;
-}
-
-.main-nav a {
-  text-decoration: none;
-  color: var(--ink-soft);
+/* Nav links override — Bootstrap navbar-dark sudah putih, ini memperhalus */
+#navbar-utama .nav-link {
+  color: rgba(255, 255, 255, 0.85);
   font-weight: 500;
   font-size: 0.95rem;
   padding: 8px 14px;
@@ -172,21 +204,46 @@ img {
   transition: color 0.2s ease, background 0.2s ease;
 }
 
-.main-nav a:hover {
-  color: var(--accent-dark);
-  background: var(--accent-soft);
+#navbar-utama .nav-link:hover,
+#navbar-utama .nav-link:focus {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Tombol CTA di nav */
+.nav-link-cta {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.nav-link-cta:hover {
+  background: rgba(255,255,255,0.28);
+}
+
+/* Navbar toggler override untuk warna brand */
+.navbar-toggler {
+  border-color: rgba(255,255,255,0.4);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+}
+
+/* Navbar collapse di mobile — background sedikit lebih gelap dari nav */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background: var(--color-accent-dk);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    margin-top: 8px;
+  }
 }
 
 /* ===================================================================
-   3. HERO / TENTANG SAYA
+   3. HERO SECTION (Langkah 3)
    =================================================================== */
 .hero-section {
   position: relative;
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 48px;
-  align-items: start;
-  padding-top: 72px;
   overflow: hidden;
 }
 
@@ -200,14 +257,19 @@ img {
   border-radius: 50%;
   background: radial-gradient(circle, rgba(124, 58, 237, 0.20) 0%, rgba(217, 70, 168, 0.10) 55%, transparent 75%);
   filter: blur(10px);
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
+}
+
+.hero-text {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-kicker {
   display: inline-block;
-  color: var(--accent-dark);
-  background: var(--accent-soft);
+  color: var(--color-accent-dk);
+  background: var(--color-accent-lt);
   font-weight: 600;
   font-size: 0.82rem;
   padding: 6px 16px;
@@ -221,7 +283,7 @@ img {
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid transparent;
-  background: linear-gradient(var(--bg), var(--bg)) padding-box, var(--gradient-brand) border-box;
+  background: linear-gradient(var(--color-bg), var(--color-bg)) padding-box, var(--gradient-brand) border-box;
   box-shadow: var(--shadow-md);
   margin-bottom: 22px;
 }
@@ -234,7 +296,7 @@ img {
 }
 
 .hero-desc {
-  color: var(--ink-soft);
+  color: var(--color-ink-soft);
   font-size: 1.05rem;
   max-width: 60ch;
   margin-bottom: 32px;
@@ -246,8 +308,8 @@ img {
   gap: 28px;
   margin-bottom: 36px;
   padding: 20px 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
 }
 
 .hero-meta > div {
@@ -258,7 +320,7 @@ img {
 
 .hero-meta-label {
   font-size: 0.78rem;
-  color: var(--ink-faint);
+  color: var(--color-ink-faint);
 }
 
 .hero-meta-value {
@@ -266,10 +328,11 @@ img {
   font-size: 0.98rem;
 }
 
+/* Skills Aside Card */
 .skills-aside {
   position: relative;
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-lg);
   padding: 28px;
   box-shadow: var(--shadow-sm);
@@ -279,9 +342,7 @@ img {
 .skills-aside::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 5px;
   background: var(--gradient-brand);
 }
@@ -294,6 +355,7 @@ img {
 
 .skills-list {
   list-style: none;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -303,7 +365,7 @@ img {
   position: relative;
   padding-left: 20px;
   font-size: 0.92rem;
-  color: var(--ink-soft);
+  color: var(--color-ink-soft);
 }
 
 .skills-list li::before {
@@ -315,56 +377,73 @@ img {
   height: 8px;
   border-radius: 50%;
   background: var(--gradient-brand);
-  box-shadow: 0 0 0 4px var(--accent-soft);
+  box-shadow: 0 0 0 4px var(--color-accent-lt);
 }
 
 /* ===================================================================
-   4. BUTTONS
+   4. TOMBOL — override Bootstrap .btn (Langkah 6)
+   Menerapkan --color-accent dan --gradient-brand ke tombol brand
+   Hover: transform + box-shadow (transisi halus)
    =================================================================== */
 .btn {
-  display: inline-block;
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.95rem;
-  padding: 13px 26px;
   border-radius: var(--radius-sm);
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease, background 0.18s ease;
 }
 
+/* Primary button: gradient brand */
 .btn-primary {
   background: var(--gradient-brand);
-  color: var(--accent-ink);
+  border-color: transparent;
+  color: var(--color-accent-ink);
   box-shadow: var(--shadow-sm);
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:focus {
+  background: var(--gradient-brand);
+  border-color: transparent;
+  color: var(--color-accent-ink);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-  filter: brightness(1.06);
+  filter: brightness(1.08);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  filter: brightness(0.96);
+}
+
+/* Outline brand button (kustom, tidak ada di Bootstrap) */
+.btn-outline-brand {
+  background: transparent;
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
+  box-shadow: none;
+}
+
+.btn-outline-brand:hover,
+.btn-outline-brand:focus {
+  background: var(--color-accent-lt);
+  border-color: var(--color-accent-dk);
+  color: var(--color-accent-dk);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-submit {
-  width: 100%;
-  background: var(--gradient-brand);
-  color: var(--accent-ink);
   padding: 14px;
   font-size: 1rem;
-}
-
-.btn-submit:hover {
-  box-shadow: var(--shadow-md);
-  filter: brightness(1.06);
 }
 
 /* ===================================================================
    5. TABEL RIWAYAT STUDI
    =================================================================== */
 .table-wrap {
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
@@ -372,16 +451,15 @@ img {
 }
 
 .riwayat-table {
-  width: 100%;
-  border-collapse: collapse;
   min-width: 560px;
 }
 
 .riwayat-table caption {
+  caption-side: top;
   text-align: left;
   padding: 20px 24px 4px 24px;
   font-weight: 600;
-  color: var(--ink-soft);
+  color: var(--color-ink-soft);
   font-size: 0.9rem;
 }
 
@@ -390,38 +468,39 @@ img {
   text-align: left;
   padding: 14px 24px;
   font-size: 0.92rem;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--color-line);
 }
 
 .riwayat-table thead th {
-  background: linear-gradient(90deg, var(--accent-soft) 0%, #FBEAF6 100%);
-  color: var(--accent-dark);
+  background: linear-gradient(90deg, var(--color-accent-lt) 0%, #FBEAF6 100%);
+  color: var(--color-accent-dk);
   font-weight: 700;
   font-size: 0.82rem;
 }
 
 .riwayat-table tbody th {
   font-weight: 600;
-  color: var(--ink-soft);
+  color: var(--color-ink-soft);
 }
 
-.riwayat-table tbody tr:hover {
-  background: var(--accent-soft);
+/* Override Bootstrap table-hover dengan warna brand */
+.riwayat-table tbody tr:hover > * {
+  background: var(--color-accent-lt);
+  --bs-table-accent-bg: var(--color-accent-lt);
 }
 
 .riwayat-table tfoot th,
 .riwayat-table tfoot td {
   font-weight: 700;
   border-bottom: none;
-  border-top: 2px solid var(--line);
+  border-top: 2px solid var(--color-line);
 }
 
+/* Badge "Lulus" */
 .badge {
-  display: inline-block;
-  font-size: 0.78rem;
   font-weight: 700;
-  padding: 4px 13px;
   border-radius: 20px;
+  font-size: 0.78rem;
 }
 
 .badge-done {
@@ -429,74 +508,113 @@ img {
   color: #ffffff;
 }
 
-/* ===================================================================
-   6. PORTOFOLIO GRID
-   =================================================================== */
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-bottom: 48px;
+/* Badge teknologi di kartu portofolio */
+.tech-badge {
+  background: var(--color-accent-lt);
+  color: var(--color-accent-dk);
+  border: 1px solid #E9D9F7;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 5px 11px;
 }
 
+/* ===================================================================
+   6. PORTFOLIO GRID — Bootstrap cards override (Langkah 4 & 6)
+   Transisi hover: transform + box-shadow (Langkah 6)
+   =================================================================== */
 .portfolio-card {
   position: relative;
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-md);
-  padding: 26px 24px 24px 24px;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* Transisi hover halus (Langkah 6) */
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
   overflow: hidden;
 }
 
 .portfolio-card::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 4px;
   background: var(--gradient-brand);
+  z-index: 1;
 }
 
+/* Hover: transform naik + shadow lebih dalam (Langkah 6) */
 .portfolio-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-md);
 }
 
-.portfolio-card h3 {
+.portfolio-card .card-title {
+  font-family: var(--font-display);
   font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-ink);
   margin-bottom: 10px;
 }
 
-.portfolio-card p {
-  color: var(--ink-soft);
+.portfolio-card .card-text {
+  color: var(--color-ink-soft);
   font-size: 0.9rem;
   margin-bottom: 16px;
 }
 
-.tag-list {
-  list-style: none;
+.portfolio-card .card-footer {
+  background: transparent;
+  border-top: 1px solid var(--color-line);
+  padding: 12px 20px;
+}
+
+.btn-detail {
+  font-size: 0.82rem;
+  padding: 6px 14px;
+}
+
+/* Banner/gambar atas kartu — gradient CSS (pilihan konfirmasi Anda) */
+.card-banner {
+  height: 130px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.tag-list li {
-  background: var(--accent-soft);
-  color: var(--accent-dark);
-  font-size: 0.78rem;
-  font-weight: 600;
-  padding: 5px 11px;
-  border-radius: 20px;
-  border: 1px solid #E9D9F7;
+.card-banner-icon {
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.9);
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
 }
 
+/* Warna gradient per kartu — variasi dari brand palette */
+.card-banner-frontend {
+  background: linear-gradient(135deg, #4F1DB5 0%, #7C3AED 50%, #A855F7 100%);
+}
+
+.card-banner-database {
+  background: linear-gradient(135deg, #7C1D6F 0%, #D946A8 50%, #EC4899 100%);
+}
+
+.card-banner-programming {
+  background: linear-gradient(135deg, #1E1250 0%, #5B21B6 50%, #7C3AED 100%);
+}
+
+.card-banner-git {
+  background: linear-gradient(135deg, #3B1F5C 0%, #7C3AED 40%, #D946A8 100%);
+}
+
+/* ===================================================================
+   7. LEARNING PATH (dipertahankan dari Praktikum 1)
+   =================================================================== */
 .learning-path {
   position: relative;
   background: linear-gradient(135deg, #241535 0%, #3B1F5C 60%, #4C1E52 100%);
-  color: var(--bg);
+  color: var(--color-bg);
   border-radius: var(--radius-lg);
   padding: 32px;
   overflow: hidden;
@@ -541,12 +659,12 @@ img {
 }
 
 /* ===================================================================
-   7. FORM KONSULTASI
+   8. FORM KONTAK (Langkah 5 + Langkah 6)
    =================================================================== */
 .contact-form {
   position: relative;
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-lg);
   padding: 32px;
   box-shadow: var(--shadow-sm);
@@ -556,128 +674,141 @@ img {
 .contact-form::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 5px;
   background: var(--gradient-brand);
 }
 
+/* Fieldset override */
 .form-fieldset {
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--accent);
+  border: 1px solid var(--color-line);
+  border-left: 3px solid var(--color-accent);
   border-radius: var(--radius-md);
   padding: 22px;
-  margin-bottom: 22px;
 }
 
 .form-fieldset legend {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.92rem;
-  color: var(--accent-dark);
+  color: var(--color-accent-dk);
   padding: 0 8px;
+  float: none;
+  width: auto;
 }
 
-.form-fieldset-nested {
-  margin-bottom: 4px;
-  margin-top: 4px;
+/* Bootstrap form-control override — warna brand saat focus */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-lt);
 }
 
-.form-group {
-  margin-bottom: 18px;
+/* Input group text (ikon) — warna brand soft */
+.input-group-text {
+  background: var(--color-accent-lt);
+  border-color: var(--color-line);
+  color: var(--color-accent-dk);
 }
 
-.form-group:last-child {
-  margin-bottom: 0;
+/* Form check (radio & checkbox) — warna aksen brand */
+.form-check-input:checked {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
-.form-group label {
-  display: block;
-  font-weight: 600;
-  font-size: 0.88rem;
-  margin-bottom: 6px;
-  color: var(--ink);
+.form-check-input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-lt);
+}
+
+.form-check-custom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.form-check-custom .form-check-input {
+  margin: 0;
 }
 
 .req {
-  color: var(--warn);
+  color: var(--color-warn);
 }
 
-.form-help {
-  display: block;
-  font-size: 0.78rem;
-  color: var(--ink-faint);
-  margin-top: 5px;
+/* Valid/Invalid feedback warna brand */
+.valid-feedback {
+  color: #16803c; /* hijau — kontras di atas putih, tidak perlu override brand */
 }
 
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"],
-select,
-textarea {
-  width: 100%;
-  font-family: var(--font-body);
-  font-size: 0.94rem;
-  padding: 11px 14px;
-  border: 1.5px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: var(--surface);
-  color: var(--ink);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+.invalid-feedback {
+  color: var(--color-warn);
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-soft);
-}
-
-textarea {
+/* Textarea resize */
+textarea.form-control {
   resize: vertical;
   min-height: 100px;
 }
 
-.radio-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
+/* ===================================================================
+   9. MODAL (Langkah 4 + 6)
+   Override Bootstrap modal dengan warna brand
+   =================================================================== */
+.custom-modal {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
 
-.radio-option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.modal-header-brand {
+  background: var(--gradient-brand);
+  color: #ffffff;
+  border-bottom: none;
+  padding: 20px 24px;
 }
 
-.radio-option label {
-  font-weight: 500;
+.modal-header-brand .modal-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 1.05rem;
+}
+
+.modal-body {
+  padding: 24px;
+  font-size: 0.94rem;
+  color: var(--color-ink);
+}
+
+.modal-body p {
+  color: var(--color-ink-soft);
   margin-bottom: 0;
 }
 
-.checkbox-group {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+.modal-body h6 {
+  font-family: var(--font-display);
+  color: var(--color-ink);
 }
 
-.checkbox-group input {
-  margin-top: 4px;
+.modal-footer {
+  border-top: 1px solid var(--color-line);
+  padding: 16px 24px;
 }
 
-.checkbox-group label {
-  margin-bottom: 0;
-  font-weight: 500;
+/* Modal banner (menggunakan class yang sama dengan card-banner) */
+.modal-banner {
+  position: relative;
+  overflow: hidden;
 }
 
 /* ===================================================================
-   8. FOOTER
+   10. FOOTER
    =================================================================== */
 .site-footer {
-  border-top: 1px solid var(--line);
-  background: var(--surface);
+  border-top: 1px solid var(--color-line);
+  background: var(--color-surface);
 }
 
 .footer-inner {
@@ -693,55 +824,43 @@ textarea {
 
 .footer-inner p {
   font-size: 0.85rem;
-  color: var(--ink-faint);
+  color: var(--color-ink-faint);
+  margin: 0;
 }
 
 .footer-inner nav ul {
   list-style: none;
   display: flex;
   gap: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 .footer-inner nav a {
   text-decoration: none;
-  color: var(--ink-soft);
+  color: var(--color-ink-soft);
   font-size: 0.85rem;
+  transition: color 0.2s ease;
 }
 
 .footer-inner nav a:hover {
-  color: var(--accent-dark);
+  color: var(--color-accent-dk);
 }
 
 /* ===================================================================
-   9. RESPONSIVE — MOBILE (<= 768px)
+   11. RESPONSIVE — MOBILE (<= 768px)
    =================================================================== */
 @media (max-width: 768px) {
-  .header-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .main-nav ul {
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-
   .section {
-    padding: 56px 18px;
+    padding: 56px 0;
   }
 
-  .hero-section {
-    grid-template-columns: 1fr;
-    padding-top: 40px;
+  .hero-text h1 {
+    font-size: 2rem;
   }
 
   .hero-meta {
     gap: 20px;
-  }
-
-  .portfolio-grid {
-    grid-template-columns: 1fr;
   }
 
   .contact-form {
@@ -755,5 +874,19 @@ textarea {
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-kicker {
+    font-size: 0.75rem;
+  }
+
+  .card-banner {
+    height: 100px;
+  }
+
+  .card-banner-icon {
+    font-size: 2.2rem;
   }
 }
