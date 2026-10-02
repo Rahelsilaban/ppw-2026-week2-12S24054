@@ -1,0 +1,48 @@
+[
+  {
+    "id": "srv-starter",
+    "name": "Web Starter / Landing Page",
+    "price": "Rp 500.000",
+    "badge": "Paket Dasar",
+    "popular": false,
+    "description": "Pembuatan website portofolio atau landing page statis responsif dan modern dengan standar kode bersih.",
+    "features": [
+      "Struktur HTML5 Semantik Murni",
+      "Styling Responsif Bootstrap 5.3 + Custom CSS Tokens",
+      "Integrasi Formulir Kontak Standar",
+      "Optimalisasi Tampilan Mobile & Desktop",
+      "Panduan Deployment ke GitHub Pages"
+    ]
+  },
+  {
+    "id": "srv-dynamic-csr",
+    "name": "Interactive Dynamic CSR Web",
+    "price": "Rp 1.200.000",
+    "badge": "Paling Populer",
+    "popular": true,
+    "description": "Aplikasi web modern decoupled dengan Client-Side Rendering (CSR), pengambilan data JSON asinkron, dan UI reaktif.",
+    "features": [
+      "Semua fitur paket Web Starter",
+      "Dynamic Data Fetching via Async/Await API Service",
+      "4 UI States Lengkap (Loading Skeleton, Success, Empty, Error Alert)",
+      "Instant Client-Side Category Filtering",
+      "Universal Dynamic Modal dengan Sanitasi XSS",
+      "Form Async REST Dispatch & Reactive Order Counter"
+    ]
+  },
+  {
+    "id": "srv-db-architecture",
+    "name": "Database & Architecture Consultation",
+    "price": "Rp 1.800.000",
+    "badge": "Layanan Spesialis",
+    "popular": false,
+    "description": "Konsultasi perancangan skema basis data relasional, pemodelan ERD, normalisasi, dan arsitektur web modern.",
+    "features": [
+      "Perancangan ERD (Entity Relationship Diagram)",
+      "Normalisasi Data (1NF, 2NF, hingga 3NF)",
+      "Perumusan Query SQL (DDL, DML, JOIN kompleks)",
+      "Diagram Arsitektur Sistem C4 Container Model",
+      "Dokumentasi Teknis dan Best Practices Penataan Repositori"
+    ]
+  }
+]

@@ -83,8 +83,6 @@ Proyek ini adalah **Personal Portfolio & Service Portal** yang dikembangkan bert
 
 ## Screenshot
 
-> 📸 *Tambahkan screenshot di sini setelah deploy ke GitHub Pages.*
-
 ```
 <!-- Contoh:
 ![Desktop View](./screenshots/desktop.png)

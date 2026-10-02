@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <!-- Custom CSS Override — dimuat SETELAH Bootstrap supaya override menang tanpa !important -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/custom-style.css">
 </head>
 <body>
 
@@ -66,7 +66,12 @@
               <a class="nav-link" href="#portofolio">Portofolio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-link-cta" href="#layanan">Kontak</a>
+              <a class="nav-link" href="#katalog-layanan">Layanan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-cta" href="#layanan">
+                Kontak <span id="navOrderCounter" class="badge rounded-pill bg-danger ms-1" style="display: none;">0</span>
+              </a>
             </li>
           </ul>
         </div>
@@ -247,108 +252,18 @@
           <p>Ringkasan area yang sedang saya dalami dan urutan tahapan belajar yang saya jalani.</p>
         </div>
 
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+        <!-- Filter Kategori Proyek (Client-Side Filtering) -->
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-4" id="projectFilterGroup" role="group" aria-label="Filter kategori portofolio">
+          <button type="button" class="btn btn-sm btn-filter active" data-category="all">Semua</button>
+          <button type="button" class="btn btn-sm btn-filter" data-category="Frontend">Frontend</button>
+          <button type="button" class="btn btn-sm btn-filter" data-category="Database">Database</button>
+          <button type="button" class="btn btn-sm btn-filter" data-category="Programming">Programming</button>
+          <button type="button" class="btn btn-sm btn-filter" data-category="DevOps">DevOps</button>
+        </div>
 
-          <!-- Kartu 1: Frontend & UI -->
-          <div class="col">
-            <article class="portfolio-card card h-100">
-              <div class="card-banner card-banner-frontend">
-                <i class="bi bi-window-stack card-banner-icon"></i>
-              </div>
-              <div class="card-body">
-                <h3 class="card-title">Frontend &amp; Desain Antarmuka</h3>
-                <p class="card-text">
-                  Menyusun halaman web semantik dan estetik menggunakan HTML5 serta CSS modern (Flexbox, Grid, Custom Properties).
-                </p>
-                <div class="d-flex flex-wrap gap-2 mb-3">
-                  <span class="badge tech-badge">HTML5</span>
-                  <span class="badge tech-badge">CSS3</span>
-                  <span class="badge tech-badge">Bootstrap 5</span>
-                  <span class="badge tech-badge">Responsive Design</span>
-                </div>
-              </div>
-              <div class="card-footer d-flex justify-content-end">
-                <button class="btn btn-primary btn-sm btn-detail" data-bs-toggle="modal" data-bs-target="#modalFrontend">
-                  <i class="bi bi-arrow-up-right-circle me-1"></i>Detail
-                </button>
-              </div>
-            </article>
-          </div>
-
-          <!-- Kartu 2: Basis Data -->
-          <div class="col">
-            <article class="portfolio-card card h-100">
-              <div class="card-banner card-banner-database">
-                <i class="bi bi-database-fill card-banner-icon"></i>
-              </div>
-              <div class="card-body">
-                <h3 class="card-title">Basis Data</h3>
-                <p class="card-text">
-                  Merancang skema data dan mempelajari relasi antar tabel untuk kebutuhan aplikasi sistem informasi.
-                </p>
-                <div class="d-flex flex-wrap gap-2 mb-3">
-                  <span class="badge tech-badge">Perancangan Skema</span>
-                  <span class="badge tech-badge">SQL Dasar</span>
-                  <span class="badge tech-badge">ERD</span>
-                </div>
-              </div>
-              <div class="card-footer d-flex justify-content-end">
-                <button class="btn btn-primary btn-sm btn-detail" data-bs-toggle="modal" data-bs-target="#modalDatabase">
-                  <i class="bi bi-arrow-up-right-circle me-1"></i>Detail
-                </button>
-              </div>
-            </article>
-          </div>
-
-          <!-- Kartu 3: Pemrograman Prosedural -->
-          <div class="col">
-            <article class="portfolio-card card h-100">
-              <div class="card-banner card-banner-programming">
-                <i class="bi bi-braces card-banner-icon"></i>
-              </div>
-              <div class="card-body">
-                <h3 class="card-title">Pemrograman &amp; Komputasi Dasar</h3>
-                <p class="card-text">
-                  Menguasai logika pemrograman prosedural serta prinsip arsitektur dan organisasi komputer.
-                </p>
-                <div class="d-flex flex-wrap gap-2 mb-3">
-                  <span class="badge tech-badge">Pemrograman Prosedural</span>
-                  <span class="badge tech-badge">Organisasi Komputer</span>
-                </div>
-              </div>
-              <div class="card-footer d-flex justify-content-end">
-                <button class="btn btn-outline-brand btn-sm btn-detail">
-                  <i class="bi bi-arrow-up-right-circle me-1"></i>Detail
-                </button>
-              </div>
-            </article>
-          </div>
-
-          <!-- Kartu 4: Version Control & Git -->
-          <div class="col">
-            <article class="portfolio-card card h-100">
-              <div class="card-banner card-banner-git">
-                <i class="bi bi-git card-banner-icon"></i>
-              </div>
-              <div class="card-body">
-                <h3 class="card-title">Version Control &amp; Git</h3>
-                <p class="card-text">
-                  Mengelola kode sumber menggunakan Git dan GitHub: branching, commit, push, dan kolaborasi tim melalui pull request.
-                </p>
-                <div class="d-flex flex-wrap gap-2 mb-3">
-                  <span class="badge tech-badge">Git</span>
-                  <span class="badge tech-badge">GitHub</span>
-                  <span class="badge tech-badge">GitHub Pages</span>
-                </div>
-              </div>
-              <div class="card-footer d-flex justify-content-end">
-                <button class="btn btn-primary btn-sm btn-detail" data-bs-toggle="modal" data-bs-target="#modalGit">
-                  <i class="bi bi-arrow-up-right-circle me-1"></i>Detail
-                </button>
-              </div>
-            </article>
-          </div>
-
+        <!-- Container Kartu Portofolio Dinamis (CSR) - diisi oleh js/app.js -->
+        <div id="projectsContainer" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5" aria-live="polite">
+          <!-- State awal / skeleton loading akan di-render dari js/app.js -->
         </div>
 
         <!-- Learning Path (dipertahankan dari Praktikum 1) -->
@@ -366,6 +281,23 @@
     </section>
 
     <!-- ===================================================================
+         KATALOG LAYANAN (DYNAMIC CSR DARI data/services.json)
+         =================================================================== -->
+    <section id="katalog-layanan" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Paket Layanan &amp; Konsultasi</h2>
+          <p>Pilihan paket terstruktur untuk perancangan antarmuka, aplikasi web dinamis, dan basis data.</p>
+        </div>
+
+        <!-- Container Katalog Layanan Dinamis (CSR) - diisi oleh js/app.js -->
+        <div id="servicesContainer" class="row row-cols-1 row-cols-md-3 g-4" aria-live="polite">
+          <!-- State awal / skeleton loading akan di-render dari js/app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
          LANGKAH 5: FORM KONTAK MODERNISASI
          Kelas Bootstrap yang dipakai:
          - .input-group + .input-group-text: grup input dengan ikon
@@ -379,6 +311,11 @@
         <div class="section-heading">
           <h2>Formulir Konsultasi &amp; Kontak</h2>
           <p>Ingin berdiskusi seputar proyek, tugas kelompok, atau sekadar menyapa? Isi formulir berikut.</p>
+          <div class="mt-2">
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">
+              <i class="bi bi-clock-history me-1"></i>Riwayat Pesanan Anda: <strong id="formOrderCounter">0</strong>
+            </span>
+          </div>
         </div>
 
         <form class="contact-form needs-validation" id="formKonsultasi" action="#" method="POST" novalidate>
@@ -582,134 +519,22 @@
   </footer>
 
   <!-- ===================================================================
-       MODAL 1: Frontend & UI Design
-       Kelas Bootstrap modal yang dipakai:
-       - .modal + .modal-dialog + .modal-content: struktur wajib modal
-       - .modal-header + .modal-body + .modal-footer: zona konten modal
-       - .modal-dialog-scrollable: agar konten panjang bisa di-scroll
-       - .modal-dialog-centered: modal tampil di tengah layar
-       - data-bs-dismiss="modal": tombol tutup tanpa JS tambahan
+       LANGKAH 5: UNIVERSAL DYNAMIC MODAL (Single Modal Pattern)
+       Menggantikan 3 modal statis terpisah dengan HANYA SATU elemen modal universal.
+       Konten (judul, banner, teknologi, capaian) diinjeksi dinamis secara aman
+       oleh openProjectModal(projectId) di js/app.js.
        =================================================================== -->
-  <div class="modal fade" id="modalFrontend" tabindex="-1" aria-labelledby="modalFrontendLabel" aria-hidden="true">
+  <div class="modal fade" id="universalProjectModal" tabindex="-1" aria-labelledby="universalModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-      <div class="modal-content custom-modal">
+      <div class="modal-content custom-modal shadow-lg">
         <div class="modal-header modal-header-brand">
-          <h5 class="modal-title" id="modalFrontendLabel">
-            <i class="bi bi-window-stack me-2"></i>Frontend &amp; Desain Antarmuka
+          <h5 class="modal-title d-flex align-items-center" id="universalModalTitle">
+            Detail Portofolio
           </h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
         </div>
-        <div class="modal-body">
-          <div class="modal-banner card-banner-frontend mb-4 rounded-3 d-flex align-items-center justify-content-center" style="height: 140px;">
-            <i class="bi bi-window-stack text-white" style="font-size: 3.5rem; opacity: 0.9;"></i>
-          </div>
-          <h6 class="fw-bold mb-2">Deskripsi Area Studi</h6>
-          <p>
-            Pada area ini, saya mempelajari cara menyusun halaman web yang semantik secara struktur
-            (<code>HTML5</code>), estetik secara tampilan (<code>CSS3</code> modern), dan responsif di berbagai
-            perangkat. Praktikum kelas PPW (Pemrograman dan Pengujian Web) menjadi arena utama penerapannya.
-          </p>
-          <h6 class="fw-bold mb-2 mt-3">Teknologi yang Dipelajari</h6>
-          <div class="d-flex flex-wrap gap-2 mb-3">
-            <span class="badge tech-badge">HTML5 Semantik</span>
-            <span class="badge tech-badge">CSS Custom Properties</span>
-            <span class="badge tech-badge">Flexbox &amp; Grid</span>
-            <span class="badge tech-badge">Bootstrap 5.3.3</span>
-            <span class="badge tech-badge">Responsive Design</span>
-            <span class="badge tech-badge">Web Accessibility</span>
-          </div>
-          <h6 class="fw-bold mb-2">Capaian di Praktikum</h6>
-          <ul>
-            <li>Minggu 2: Membangun portofolio statis dengan HTML5 semantik murni dan CSS custom dari nol.</li>
-            <li>Minggu 3: Merefaktor dan mengintegrasikan Bootstrap 5.3.3 dengan custom CSS override.</li>
-          </ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-brand btn-sm" data-bs-dismiss="modal">
-            <i class="bi bi-x-circle me-1"></i>Tutup
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL 2: Basis Data — konten berbeda dari Modal 1 -->
-  <div class="modal fade" id="modalDatabase" tabindex="-1" aria-labelledby="modalDatabaseLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-      <div class="modal-content custom-modal">
-        <div class="modal-header modal-header-brand">
-          <h5 class="modal-title" id="modalDatabaseLabel">
-            <i class="bi bi-database-fill me-2"></i>Basis Data &amp; Perancangan Skema
-          </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
-        </div>
-        <div class="modal-body">
-          <div class="modal-banner card-banner-database mb-4 rounded-3 d-flex align-items-center justify-content-center" style="height: 140px;">
-            <i class="bi bi-database-fill text-white" style="font-size: 3.5rem; opacity: 0.9;"></i>
-          </div>
-          <h6 class="fw-bold mb-2">Deskripsi Area Studi</h6>
-          <p>
-            Matakuliah Basis Data (+P) mengajarkan cara merancang skema data yang efisien dan relasional.
-            Saya mempelajari normalisasi tabel, pembuatan Entity Relationship Diagram (ERD), dan penulisan
-            query SQL dasar untuk manipulasi data.
-          </p>
-          <h6 class="fw-bold mb-2 mt-3">Teknologi &amp; Konsep</h6>
-          <div class="d-flex flex-wrap gap-2 mb-3">
-            <span class="badge tech-badge">ERD &amp; Normalisasi</span>
-            <span class="badge tech-badge">SQL SELECT/INSERT</span>
-            <span class="badge tech-badge">JOIN &amp; Relasi Tabel</span>
-            <span class="badge tech-badge">DDL &amp; DML</span>
-          </div>
-          <h6 class="fw-bold mb-2">Konteks Mata Kuliah</h6>
-          <ul>
-            <li>Kode: <strong>10S1003</strong> — Basis Data (+P), Semester 2</li>
-            <li>SKS: 3 SKS (termasuk praktikum)</li>
-            <li>Status: <span class="badge badge-done">Lulus</span></li>
-          </ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-brand btn-sm" data-bs-dismiss="modal">
-            <i class="bi bi-x-circle me-1"></i>Tutup
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL 3: Version Control & Git — konten berbeda dari Modal 1 & 2 -->
-  <div class="modal fade" id="modalGit" tabindex="-1" aria-labelledby="modalGitLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-      <div class="modal-content custom-modal">
-        <div class="modal-header modal-header-brand">
-          <h5 class="modal-title" id="modalGitLabel">
-            <i class="bi bi-git me-2"></i>Version Control &amp; Git
-          </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
-        </div>
-        <div class="modal-body">
-          <div class="modal-banner card-banner-git mb-4 rounded-3 d-flex align-items-center justify-content-center" style="height: 140px;">
-            <i class="bi bi-git text-white" style="font-size: 3.5rem; opacity: 0.9;"></i>
-          </div>
-          <h6 class="fw-bold mb-2">Deskripsi Area Studi</h6>
-          <p>
-            Version control adalah keterampilan esensial dalam pengembangan perangkat lunak modern.
-            Menggunakan Git dan GitHub, saya mengelola perubahan kode, bekerja dalam tim secara
-            paralel lewat branching, dan mempublikasikan proyek secara live di GitHub Pages.
-          </p>
-          <h6 class="fw-bold mb-2 mt-3">Teknologi &amp; Workflow</h6>
-          <div class="d-flex flex-wrap gap-2 mb-3">
-            <span class="badge tech-badge">Git Init &amp; Clone</span>
-            <span class="badge tech-badge">Commit &amp; Push</span>
-            <span class="badge tech-badge">Branching &amp; Merge</span>
-            <span class="badge tech-badge">GitHub Pages</span>
-            <span class="badge tech-badge">Pull Request</span>
-          </div>
-          <h6 class="fw-bold mb-2">Penerapan di Proyek Ini</h6>
-          <ul>
-            <li>Repository ini dikelola dengan Git dan dipublikasi di GitHub.</li>
-            <li>Setiap praktikum minggu 2 dan 3 dideploy live via GitHub Pages.</li>
-            <li>Commit history merekam perkembangan dari HTML murni hingga integrasi Bootstrap.</li>
-          </ul>
+        <div class="modal-body" id="universalModalBody">
+          <!-- Diinjeksi dinamis oleh openProjectModal() dengan sanitasi XSS -->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-brand btn-sm" data-bs-dismiss="modal">
@@ -723,24 +548,27 @@
   <!-- Langkah 1: Bootstrap 5.3.3 JS Bundle (dengan Popper) — sebelum </body> -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Script validasi form Bootstrap (Langkah 5) -->
-  <script>
-    // Aktifkan validasi Bootstrap: tambah class 'was-validated' ke form saat submit
-    // sehingga .valid-feedback dan .invalid-feedback muncul secara visual
-    (function () {
-      'use strict';
-      var forms = document.querySelectorAll('.needs-validation');
-      Array.prototype.slice.call(forms).forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    })();
-  </script>
+  <!-- ===================================================================
+       LANGKAH 6: BOOTSTRAP TOAST NOTIFICATION
+       Ditampilkan otomatis setelah form submission asinkron berhasil.
+       =================================================================== -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
+    <div id="orderSuccessToast" class="toast align-items-center text-bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body d-flex align-items-center gap-2">
+          <i class="bi bi-check-circle-fill fs-5"></i>
+          <div>
+            <strong class="d-block">Pesanan Berhasil Terkirim!</strong>
+            <span id="toastMessage">Permintaan konsultasi Anda telah berhasil dicatat.</span>
+          </div>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Tutup"></button>
+      </div>
+    </div>
+  </div>
 
+  <!-- Aplikasi JavaScript Decoupled: Data Access Layer & App Controller -->
+  <script src="js/api-service.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

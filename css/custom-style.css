@@ -890,3 +890,121 @@ textarea.form-control {
     font-size: 2.2rem;
   }
 }
+
+/* ===================================================================
+   12. PRAKTIKUM 3 / WEEK 4: DYNAMIC CSR & COMPONENT STYLING
+   =================================================================== */
+/* Filter Kategori Buttons */
+.btn-filter {
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-line);
+  color: var(--color-ink-soft);
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 50px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-filter:hover {
+  background: var(--color-accent-lt);
+  border-color: var(--color-accent);
+  color: var(--color-accent-dk);
+}
+
+.btn-filter.active {
+  background: var(--gradient-brand);
+  border-color: transparent;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+}
+
+/* Skeleton Loading State */
+.skeleton-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-line);
+  overflow: hidden;
+}
+
+.skeleton-banner {
+  height: 120px;
+  background: linear-gradient(90deg, #EDE9FE 25%, #F5F3FF 50%, #EDE9FE 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-text {
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  margin-bottom: 8px;
+}
+
+.skeleton-text.w-75 { width: 75%; }
+.skeleton-text.w-50 { width: 50%; }
+.skeleton-text.w-100 { width: 100%; }
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Service / Pricing Card Styles */
+.service-card {
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-line);
+  background: var(--color-surface);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-accent);
+}
+
+.service-card.featured {
+  border-color: var(--color-accent);
+  box-shadow: 0 8px 24px -6px rgba(124, 58, 237, 0.3);
+  position: relative;
+}
+
+.service-badge-popular {
+  background: var(--gradient-brand);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.service-price {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.service-feature-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.service-feature-list li {
+  padding: 6px 0;
+  color: var(--color-ink-soft);
+  font-size: 0.92rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.service-feature-list li i {
+  color: var(--color-accent);
+  margin-right: 8px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}

@@ -1,0 +1,41 @@
+{
+  "name": "Rahel Juri Elisabet Silaban",
+  "kicker": "Mahasiswa S1 Sistem Informasi",
+  "bio": "Saya sedang menempuh studi Sistem Informasi di Institut Teknologi Del, dengan minat pada perancangan antarmuka web, basis data, dan pengembangan aplikasi yang rapi serta mudah digunakan. Saya senang menyusun sistem dari struktur data sampai tampilan akhir yang enak dipakai.",
+  "photo": "foto-profil.jpg",
+  "meta": {
+    "nim": "12S24054",
+    "prodi": "S1 Sistem Informasi",
+    "kampus": "Institut Teknologi Del"
+  },
+  "stats": [
+    {
+      "label": "Total SKS Ditempuh",
+      "value": "19 SKS",
+      "icon": "bi-journal-check"
+    },
+    {
+      "label": "Proyek Praktikum",
+      "value": "4 Proyek",
+      "icon": "bi-code-slash"
+    },
+    {
+      "label": "Status Akademik",
+      "value": "Mahasiswa Aktif",
+      "icon": "bi-mortarboard"
+    },
+    {
+      "label": "Kepuasan Layanan",
+      "value": "100%",
+      "icon": "bi-stars"
+    }
+  ],
+  "skills": [
+    "Perancangan Antarmuka Web (HTML5 & CSS3)",
+    "Basis Data & Perancangan Skema",
+    "Pemrograman Prosedural",
+    "Arsitektur & Organisasi Komputer",
+    "Version Control dengan Git",
+    "Kerja Sama Tim & Dokumentasi Teknis"
+  ]
+}

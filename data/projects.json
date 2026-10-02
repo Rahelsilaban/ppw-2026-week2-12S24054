@@ -1,0 +1,74 @@
+[
+  {
+    "id": "frontend-ui",
+    "title": "Frontend & Desain Antarmuka",
+    "description": "Menyusun halaman web semantik dan estetik menggunakan HTML5 serta CSS modern (Flexbox, Grid, Custom Properties).",
+    "thumbnail": "bi-window-stack",
+    "category": "Frontend",
+    "tags": ["HTML5", "CSS3", "Bootstrap 5", "Responsive Design"],
+    "link": "https://github.com/Rahelsilaban/ppw-2026-week2-12S24054",
+    "bannerClass": "card-banner-frontend",
+    "details": {
+      "overview": "Pada area ini, saya mempelajari cara menyusun halaman web yang semantik secara struktur (HTML5), estetik secara tampilan (CSS3 modern), dan responsif di berbagai perangkat. Praktikum kelas PPW (Pemrograman dan Pengujian Web) menjadi arena utama penerapannya.",
+      "technologies": ["HTML5 Semantik", "CSS Custom Properties", "Flexbox & Grid", "Bootstrap 5.3.3", "Responsive Design", "Web Accessibility"],
+      "achievements": [
+        "Minggu 2: Membangun portofolio statis dengan HTML5 semantik murni dan CSS custom dari nol.",
+        "Minggu 3: Merefaktor dan mengintegrasikan Bootstrap 5.3.3 dengan custom CSS override."
+      ]
+    }
+  },
+  {
+    "id": "database-schema",
+    "title": "Basis Data & Perancangan Skema",
+    "description": "Merancang skema data dan mempelajari relasi antar tabel untuk kebutuhan aplikasi sistem informasi.",
+    "thumbnail": "bi-database-fill",
+    "category": "Database",
+    "tags": ["Perancangan Skema", "SQL Dasar", "ERD", "Relasi Tabel"],
+    "link": "https://github.com/Rahelsilaban/ppw-2026-week2-12S24054",
+    "bannerClass": "card-banner-database",
+    "details": {
+      "overview": "Matakuliah Basis Data (+P) mengajarkan cara merancang skema data yang efisien dan relasional. Saya mempelajari normalisasi tabel, pembuatan Entity Relationship Diagram (ERD), dan penulisan query SQL dasar untuk manipulasi data.",
+      "technologies": ["ERD & Normalisasi", "SQL SELECT/INSERT", "JOIN & Relasi Tabel", "DDL & DML"],
+      "achievements": [
+        "Merancang skema basis data akademik yang ter-normalisasi hingga 3NF.",
+        "Mengimplementasikan query relasional antar entitas dalam pengujian basis data."
+      ]
+    }
+  },
+  {
+    "id": "procedural-prog",
+    "title": "Pemrograman & Komputasi Dasar",
+    "description": "Menguasai logika pemrograman prosedural serta prinsip arsitektur dan organisasi komputer.",
+    "thumbnail": "bi-braces",
+    "category": "Programming",
+    "tags": ["Pemrograman Prosedural", "Organisasi Komputer", "Algoritma"],
+    "link": "https://github.com/Rahelsilaban/ppw-2026-week2-12S24054",
+    "bannerClass": "card-banner-programming",
+    "details": {
+      "overview": "Mempelajari dasar logika pemecahan masalah algoritmis, struktur kontrol perulangan/kondisi, manipulasi larik (array), serta representasi bilangan dan instruksi mesin pada tingkat arsitektur sistem.",
+      "technologies": ["C / Python", "Algoritma Prosedural", "Struktur Data Linear", "Arsitektur CPU & Memori"],
+      "achievements": [
+        "Menyelesaikan implementasi modul pemrograman terstruktur dengan efisiensi logika tinggi.",
+        "Memahami alokasi memori komputer dan abstraksi instruksi pada sistem komputasi."
+      ]
+    }
+  },
+  {
+    "id": "git-version-control",
+    "title": "Version Control & Git Collaboration",
+    "description": "Mengelola kode sumber menggunakan Git dan GitHub: branching, commit, push, dan kolaborasi tim melalui pull request.",
+    "thumbnail": "bi-git",
+    "category": "DevOps",
+    "tags": ["Git", "GitHub", "GitHub Pages", "Branching Strategy"],
+    "link": "https://github.com/Rahelsilaban/ppw-2026-week2-12S24054",
+    "bannerClass": "card-banner-git",
+    "details": {
+      "overview": "Version control adalah keterampilan esensial dalam pengembangan perangkat lunak modern. Menggunakan Git dan GitHub, saya mengelola perubahan kode, bekerja dalam alur branching, dan mempublikasikan proyek secara live di GitHub Pages.",
+      "technologies": ["Git CLI (Init, Commit, Push)", "Branching & Merge Workflow", "GitHub Pages Deployment", "Pull Request & Code Review"],
+      "achievements": [
+        "Repository dikelola secara terstruktur dengan commit history yang jelas antar praktikum.",
+        "Mempublikasikan web live di GitHub Pages untuk setiap tahapan rilis."
+      ]
+    }
+  }
+]
