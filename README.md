@@ -1,125 +1,131 @@
-# Portofolio Personal — Rahel Juri Elisabet Silaban
+# Personal Portfolio & Service Portal — Week 4
 
-## Identitas
-
-| Atribut | Detail |
-|---|---|
-| **Nama** | Rahel Juri Elisabet Silaban |
-| **NIM** | 12S24054 |
-| **Program Studi** | S1 Sistem Informasi |
-| **Kampus** | Institut Teknologi Del |
-| **Mata Kuliah** | Pemrograman dan Pengujian Web (PPW) |
-| **Tahun Ajaran** | 2025/2026 |
+**Nama:** Rahel Juri Elisabet Silaban
+**NIM:** 12S24054
+**Kelas:** S1 Sistem Informasi
+**Live Demo:** https://rahelsilaban.github.io/ppw-2026-week2-12S24054/
 
 ---
 
-## Ringkasan Proyek
+## 1. Arsitektur Sistem (C4 Container Model)
 
-Proyek ini adalah **Personal Portfolio & Service Portal** yang dikembangkan bertahap selama Praktikum PPW:
+Proyek ini telah ditransformasi dari arsitektur statis (hardcoded) menjadi arsitektur
+decoupled multi-tier, memisahkan tanggung jawab tampilan, logika, dan data ke dalam
+lapisan-lapisan terpisah.
 
-- **Praktikum 1 (Minggu 2):** Membangun portofolio statis dari nol menggunakan HTML5 semantik murni dan CSS custom (tanpa framework), dengan struktur `<header>`, `<nav>`, `<main>`, `<section>`, `<footer>`.
-- **Praktikum 2 (Minggu 3):** Merefaktor dan mengembangkan proyek yang sama dengan mengintegrasikan **Bootstrap 5.3.3** sebagai framework CSS, sambil mempertahankan identitas visual personal melalui CSS custom properties dan override cascade.
+```mermaid
+C4Container
+    title C4 Container Diagram - Personal Portfolio & Service Portal
+
+    Person(user, "Pengunjung", "Pengguna yang mengakses portofolio")
+
+    Container_Boundary(client, "Presentation Tier") {
+        Container(browser, "Browser Client", "HTML5, Bootstrap 5, CSS3", "Merender UI, menangani interaksi, filter kategori, dan modal")
+        Container(appjs, "app.js", "JavaScript ES6+", "Mengontrol DOM, render dinamis, UI states (loading/success/empty/error)")
+        Container(apiservice, "api-service.js", "JavaScript ES6+ (Fetch API)", "Data Access Layer: mengambil data via fetch() async/await")
+    }
+
+    Container_Boundary(hosting, "Static Hosting / CDN") {
+        Container(ghpages, "GitHub Pages", "Static CDN", "Menghosting seluruh aset statis (HTML, CSS, JS, JSON)")
+    }
+
+    Container_Boundary(data, "Simulated Application & Data Tier") {
+        ContainerDb(projectsjson, "projects.json", "JSON File", "Data proyek portofolio")
+        ContainerDb(servicesjson, "services.json", "JSON File", "Katalog layanan")
+        ContainerDb(profilejson, "profile.json", "JSON File", "Biodata & statistik")
+    }
+
+    Rel(user, browser, "Mengakses via", "HTTPS")
+    Rel(browser, appjs, "Memuat & menjalankan")
+    Rel(appjs, apiservice, "Memanggil fungsi fetch data")
+    Rel(apiservice, ghpages, "GET request", "Fetch API / JSON")
+    Rel(ghpages, projectsjson, "Menyajikan")
+    Rel(ghpages, servicesjson, "Menyajikan")
+    Rel(ghpages, profilejson, "Menyajikan")
+```
+
+### Separation of Concerns
+
+Arsitektur ini memisahkan tiga kepentingan utama agar sistem lebih mudah dipelihara:
+
+- **Presentation Tier** (`index.html`, `custom-style.css`, `app.js`) hanya bertanggung
+  jawab menampilkan UI dan menangani interaksi pengguna, tanpa menyimpan data secara
+  langsung di dalamnya.
+- **Data Access Layer** (`api-service.js`) menjadi satu-satunya titik yang berkomunikasi
+  dengan sumber data (fetch), sehingga jika sumber data berubah (misalnya nanti diganti
+  REST API sungguhan), hanya file ini yang perlu disesuaikan — `app.js` tidak perlu diubah.
+- **Data Tier** (`projects.json`, `services.json`, `profile.json`) berperan sebagai mock
+  REST data provider yang independen, mensimulasikan bagaimana aplikasi nyata biasanya
+  mengambil data dari backend API alih-alih menulisnya langsung di HTML.
+
+Pemisahan ini membuat proyek lebih dekat dengan pola arsitektur web kontemporer
+(decoupled, Jamstack-style) dibanding pendekatan monolitik Week 3 yang masih
+menyatukan data dan tampilan dalam satu berkas HTML.
 
 ---
 
-## Pembaruan dari Minggu 2 ke Minggu 3
+## 2. Tabel Komparasi: Sebelum vs Sesudah Refactoring
 
-### Langkah 1 — Setup Bootstrap
-- Menambahkan CDN Bootstrap 5.3.3 CSS di `<head>` **sebelum** `style.css`, sehingga custom CSS menang via cascade order.
-- Menambahkan Bootstrap Icons CDN untuk ikon dekoratif dan fungsional.
-- Menambahkan Bootstrap JS Bundle sebelum `</body>` untuk mengaktifkan komponen interaktif (Modal, Collapse/Navbar).
-
-### Langkah 2 — Navbar Responsif
-- Mengubah navigasi lama menjadi `navbar navbar-expand-lg navbar-dark sticky-top`.
-- Menambahkan tombol hamburger dengan `data-bs-toggle="collapse"` yang berfungsi tanpa error di ukuran mobile.
-- Mempertahankan brand logo `Rahel.dev` dan semua link navigasi asli.
-- Override warna navbar dengan `--color-accent` (#7C3AED) sesuai identitas brand.
-
-### Langkah 3 — Hero Section Grid Bootstrap
-- Menyusun ulang hero dengan `container > row > col-lg-7 + col-lg-5`.
-- Menambahkan dua tombol CTA: "Lihat Portofolio" (→ `#portofolio`) dan "Hubungi Saya" (→ `#layanan`).
-- Mempertahankan semua konten asli: foto profil, bio, meta info NIM/Prodi/Kampus, skills aside.
-
-### Langkah 4 — Portfolio Grid + Modal
-- Mengubah kartu lama menjadi Bootstrap grid `row-cols-1 row-cols-md-2 row-cols-lg-3 g-4`.
-- Menambahkan kartu ke-4: **Version Control & Git**.
-- Setiap kartu dilengkapi banner gradient CSS, badge teknologi, deskripsi, dan tombol "Detail".
-- **3 Bootstrap Modal** dengan konten berbeda: Frontend & UI, Basis Data, Version Control & Git.
-
-### Langkah 5 — Modernisasi Form Kontak
-- Input Group dengan ikon Bootstrap Icons di setiap field.
-- `<select>` dengan `form-select` + kategori layanan diperluas.
-- Radio jadwal dan checkbox syarat menggunakan `form-check` Bootstrap.
-- Elemen `.valid-feedback` / `.invalid-feedback` dengan validasi HTML5 Bootstrap (`needs-validation`).
-
-### Langkah 6 — Custom Theming
-- Mendefinisikan **8+ CSS custom properties** di `:root` dengan prefix `--color-*`.
-- Variabel diterapkan konsisten ke navbar, cards, tombol, form, modal.
-- Transisi hover halus (`transform + box-shadow`) pada card dan tombol.
-- Satu penggunaan `!important` yang didokumentasi: background navbar (alasan: spesifisitas Bootstrap utility class).
-
----
-
-## Tabel Komparasi Sebelum vs Sesudah Integrasi Framework
-
-| Aspek |  Sebelum (Minggu 2 — HTML + CSS Murni) | Sesudah (Minggu 3 — Bootstrap 5.3.3) |
+| Aspek | Week 3 (Sebelum) | Week 4 (Sesudah) |
 |---|---|---|
-| **Navbar** | Flexbox manual dengan `header-inner`, tanpa hamburger | `navbar navbar-expand-lg` + hamburger `data-bs-toggle` yang fully functional |
-| **Responsivitas Navbar** | Wrap ke bawah dengan `flex-wrap` sederhana | Collapse/expand otomatis dengan animasi Bootstrap |
-| **Layout Hero** | CSS Grid manual `grid-template-columns: 1.5fr 1fr` | Bootstrap grid `col-lg-7 + col-lg-5` dalam `.row` |
-| **Tombol CTA** | 1 tombol "Hubungi Saya" | 2 tombol CTA: ke portofolio dan ke kontak, dengan ikon |
-| **Portfolio Cards** | 3 kartu, CSS Grid `repeat(3, 1fr)`, tanpa gambar/tombol | 4 kartu, `row-cols-*` responsif, banner gradient, badge, tombol Detail |
-| **Interaktivitas Cards** | Tidak ada | 3 Modal detail dengan konten berbeda per kartu |
-| **Form — Input** | `input + label` biasa dengan CSS manual | `input-group` + ikon + `form-control` + `valid/invalid-feedback` |
-| **Form — Select** | `<select>` dengan CSS custom | `form-select` Bootstrap, terintegrasi input-group |
-| **Form — Radio/Checkbox** | Custom radio/checkbox dengan class `radio-option` | `form-check` Bootstrap dengan ikon dekoratif |
-| **Validasi Form** | Hanya validasi HTML5 default browser | Bootstrap validation visual (`needs-validation` + `was-validated`) |
-| **CSS Variables** | 14 variabel `--*` di `:root` | 8 variabel `--color-*` + alias, diterapkan konsisten ke semua komponen |
-| **Hover Efek** | `translateY(-5px)` pada card saja | `transform + box-shadow + filter` pada card, tombol, nav link |
-| **Ikon** | Tidak ada ikon | Bootstrap Icons di navbar, form, tombol, modal |
-| **Dependencies** | 0 (murni HTML + CSS + Google Fonts) | Bootstrap 5.3.3 CSS + JS Bundle, Bootstrap Icons |
+| Sumber data card proyek | Hardcoded langsung di `index.html` | Dimuat dinamis dari `data/projects.json` via fetch() |
+| Sumber data layanan | Hardcoded di HTML | Dimuat dinamis dari `data/services.json` |
+| Modal detail proyek | Elemen modal terpisah untuk tiap proyek (duplikasi HTML) | Satu Universal Dynamic Modal, konten diinjeksi berdasarkan ID |
+| Pengiriman form | Submit standar (kemungkinan reload halaman) | Asinkron via fetch POST, tanpa reload, dengan Bootstrap Toast |
+| Penyimpanan riwayat pesanan | Tidak ada | Tersimpan di localStorage, ditampilkan di badge counter |
+| Penanganan status loading/error | Tidak ada penanganan eksplisit | 4 UI states: Loading, Success, Empty, Error |
+| Struktur folder | Flat (semua file di root) | Terstruktur: `/css`, `/data`, `/js` |
+| Keamanan terhadap XSS | Tidak relevan (data statis) | Sanitasi via textContent/escapeHTML sebelum injeksi ke DOM |
 
 ---
 
-## Screenshot
+## 3. Hasil Network Performance Profiling
 
-```
-<!-- Contoh:
-![Desktop View](./screenshots/desktop.png)
-![Mobile View](./screenshots/mobile.png)
-![Modal Detail](./screenshots/modal.png)
--->
-```
+Pengujian dilakukan menggunakan Chrome DevTools (tab Network), membandingkan kondisi
+**Cold Load** (hard refresh, cache diabaikan) dengan **Warm Load** (refresh biasa,
+memanfaatkan cache browser).
+
+| Metrik | Cold Load | Warm Load |
+|---|---|---|
+| Jumlah request | 19 | 18 |
+| Total data transferred | 451 kB | 104 B |
+| Waktu load halaman (Load event) | 2.29 s | 373 ms |
+| Status dokumen utama (index.html) | 200 | **304 Not Modified** |
+| TTFB — projects.json | 8.94 ms | 1.17 ms |
+| Content download — projects.json | 8.97 ms | 1.16 ms |
+| Total duration — projects.json | 25.25 ms | 5.02 ms |
+| Sumber file JSON (projects/services/profile) | Network (200) | Disk cache |
+| Sumber file statis (CSS, JS, font) | Network (200) | Memory cache (0 ms) |
+
+### Analisis
+
+- **TTFB turun drastis** dari 8.94 ms menjadi 1.17 ms pada Warm Load, karena pada
+  Cold Load browser harus membuat koneksi baru dan menunggu respons penuh dari server,
+  sedangkan pada Warm Load sebagian besar permintaan divalidasi atau diambil langsung
+  dari cache lokal.
+- **Status 304 Not Modified** muncul pada dokumen utama saat Warm Load, membuktikan
+  mekanisme caching sesuai RFC 9111 bekerja: browser memvalidasi ke server apakah
+  berkas berubah, dan karena tidak ada perubahan, server merespons tanpa mengirim
+  ulang body — menghemat bandwidth.
+- **File statis** (CSS, JS, font) bahkan tidak lagi melakukan request ke server sama
+  sekali pada Warm Load — langsung diambil dari **memory cache** dengan waktu 0 ms,
+  lebih cepat dibanding file JSON yang diambil dari **disk cache** (±27 ms per file).
+  Ini menunjukkan browser memprioritaskan memory cache untuk aset yang sering diakses
+  dalam sesi yang sama.
+- **Total data yang ditransfer** turun dari 451 kB menjadi hanya 104 B — penghematan
+  bandwidth hampir 100% pada kunjungan berulang.
+
+### Screenshot Waterfall
+
+**Cold Load:**
+<!-- Tempel screenshot cold-load.png di sini -->
+
+**Warm Load:**
+<!-- Tempel screenshot warm-load.png di sini -->
 
 ---
 
-## Link Live Demo
+## 4. Live Deployment
 
-> 🔗 **Live Demo:** [https://rahelsilaban.github.io/ppw-2026-week2-12S24054/](https://rahelsilaban.github.io/ppw-2026-week2-12S24054/)
-
----
-
-## Teknologi yang Digunakan
-
-- **HTML5** — Struktur semantik (`header`, `nav`, `main`, `section`, `footer`, `article`, `aside`, `fieldset`)
-- **CSS3** — Custom Properties, Flexbox, Grid, Transitions, Gradients
-- **Bootstrap 5.3.3** — Grid system, Navbar, Cards, Modals, Form components, Utility classes
-- **Bootstrap Icons 1.11.3** — Ikon SVG berbasis font
-- **Google Fonts** — Sora (display) + Inter (body)
-
----
-
-## Struktur File
-
-```
-ppw-2026-week2-12S24054/
-├── index.html          # Halaman utama (refactored dengan Bootstrap)
-├── style.css           # Custom CSS override (setelah Bootstrap)
-├── foto-profil.jpg     # Foto profil
-├── portfolio-banner.jpg # Banner portfolio (generated)
-└── README.md           # Dokumentasi ini
-```
-
----
-
-*Praktikum PPW 2026 — Institut Teknologi Del*
+🔗 **Live Demo:** https://rahelsilaban.github.io/ppw-2026-week2-12S24054/
+📁 **Branch:** `week4-architecture`
