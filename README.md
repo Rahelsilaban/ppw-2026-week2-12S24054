@@ -87,19 +87,20 @@ memanfaatkan cache browser).
 
 | Metrik | Cold Load | Warm Load |
 |---|---|---|
-| Jumlah request | 19 | 18 |
-| Total data transferred | 451 kB | 104 B |
-| Waktu load halaman (Load event) | 2.29 s | 373 ms |
-| Status dokumen utama (index.html) | 200 | **304 Not Modified** |
-| TTFB — projects.json | 8.94 ms | 1.17 ms |
-| Content download — projects.json | 8.97 ms | 1.16 ms |
-| Total duration — projects.json | 25.25 ms | 5.02 ms |
-| Sumber file JSON (projects/services/profile) | Network (200) | Disk cache |
-| Sumber file statis (CSS, JS, font) | Network (200) | Memory cache (0 ms) |
+| Jumlah request | 18 | 17 |
+| Total data transferred | 109 kB | 236 B |
+| Waktu load halaman (Load event) | 1.14 s | 10.17 s |
+| DOMContentLoaded | 662 ms | 10.12 s |
+| Status dokumen utama (index.html) | 200 OK (6.7 kB) | **304 Not Modified** (236 B) |
+| Waktu muat `projects.json` | 343 ms (Network) | **3 ms (Disk cache)** |
+| Waktu muat `services.json` | 266 ms (Network) | **3 ms (Disk cache)** |
+| Waktu muat `profile.json` | 266 ms (Network) | **4 ms (Disk cache)** |
+| Sumber file statis (CSS, JS, font) | Network (200) / Cache | Memory cache (0 ms) |
+
 
 ### Analisis
 
-- **TTFB turun drastis** dari 8.94 ms menjadi 1.17 ms pada Warm Load, karena pada
+- **TTFB turun drastis** karena pada
   Cold Load browser harus membuat koneksi baru dan menunggu respons penuh dari server,
   sedangkan pada Warm Load sebagian besar permintaan divalidasi atau diambil langsung
   dari cache lokal.
@@ -118,10 +119,10 @@ memanfaatkan cache browser).
 ### Screenshot Waterfall
 
 **Cold Load:**
-<!-- Tempel screenshot cold-load.png di sini -->
+![Screenshot Waterfall - Cold Load](screenshots/cold-load.png)
 
 **Warm Load:**
-<!-- Tempel screenshot warm-load.png di sini -->
+![Screenshot Waterfall - Warm Load](screenshots/warm-load.png)
 
 ---
 
